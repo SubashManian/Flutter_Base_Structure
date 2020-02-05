@@ -1,6 +1,6 @@
-# flutterapp
+# Flutter Base Structure
 
-A new Flutter project.
+Flutter base and folder structure using redux concept.
 
 ## Getting Started
 
