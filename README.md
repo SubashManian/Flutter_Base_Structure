@@ -1,6 +1,15 @@
-# flutterapp
+# Base Structure
 
-A new Flutter project.
+Screens: 
+1. Login
+2. Register
+3. Home
+4. Profile.
+5. Settings.
+
+Components:
+1. Drawer Menu.
+2. Top Tap Menus.
 
 ## Getting Started
 
