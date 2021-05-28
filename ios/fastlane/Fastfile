@@ -1,0 +1,55 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+  before_all do
+    setup_circle_ci
+  end
+  
+  desc "Deploy a iOS build to Appcenter"
+  lane :upload_appcenter do
+    sh("bundle", "install")
+    Dir.chdir "../.." do
+      sh("flutter", "packages", "get")
+      # sh("flutter", "clean")
+      sh("flutter", "build", "ios", "--release", "--no-codesign")
+    end
+    match(type: "development")
+    update_code_signing_settings(
+      # path: "demo-project/demo/demo.xcodeproj",
+      use_automatic_signing: false,
+      targets: ["Runner"],
+      team_id: "XXXXXX",
+      code_sign_identity: "iPhone Developer",
+      profile_name: "XXXXXXXX"
+    )
+    gym(
+      export_method: "development",
+    )
+    appcenter_upload(
+      api_token: "XXXXX",
+      owner_name: "XXXXX",
+      owner_type: "organization",
+      file: "../build/Runner.ipa",
+      destination_type: "group",
+      destinations: "Dev Testing Group",
+      app_name: "Test",
+      notify_testers: "false",
+      timeout: 120,
+    )
+  end
+end

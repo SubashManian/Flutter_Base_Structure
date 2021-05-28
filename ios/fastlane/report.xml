@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="fastlane.lanes">
+    
+    
+    
+      
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000304">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="1: setup_circle_ci" time="0.001756">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="2: bundle install" time="0.520778">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="3: flutter packages get" time="1.660836">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="4: flutter build ios --release --no-codesign" time="22.510381">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="5: match" time="58.071856">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="6: update_code_signing_settings" time="0.092678">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="7: gym" time="57.620553">
+        
+      </testcase>
+    
+  </testsuite>
+</testsuites>

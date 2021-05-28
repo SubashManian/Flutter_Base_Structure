@@ -1,0 +1,46 @@
+version: 2.1
+
+executors:
+  android-flutter:
+    docker:
+      - image: mbkan/flutter-fastlane-android:latest
+    environment:
+      TERM: dumb
+      _JAVA_OPTIONS: "-Xmx2048m -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
+      GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m"'
+jobs:
+  appcenter_deploy_android:
+    executor: android-flutter
+    steps:
+      - checkout
+      - run: flutter doctor
+      - run: cd android && gem install bundler -v 2.2.16 && bundle install && fastlane android upload_appcenter
+  appcenter_deploy_ios:
+    macos:
+      xcode: 12.4.0        
+    steps:
+      - checkout
+      - run:
+          name: download flutter SDK
+          command: if ! test -f "~/flutter_sdk.zip"; then curl -o ~/flutter_sdk.zip https://storage.googleapis.com/flutter_infra/releases/stable/macos/flutter_macos_2.0.3-stable.zip; fi
+      - run:
+          name: unzip flutter SDK
+          command: unzip ~/flutter_sdk.zip -d ~
+      - run:
+          name: export flutter path
+          command: echo 'export PATH="$PATH:~/flutter/bin"'  >> $BASH_ENV
+
+      - run: flutter doctor
+      - run: cd ios && gem install bundler -v 2.2.16 && bundle install && fastlane ios upload_appcenter
+
+workflows:
+  deploy:
+    jobs:
+#       - appcenter_deploy_android:
+#           filters:
+#             branches:
+#               only: main
+      - appcenter_deploy_ios:
+          filters:
+            branches:
+              only: main         
