@@ -5,6 +5,6 @@
 # For more information about the Appfile, see:
 #     https://docs.fastlane.tools/advanced/#appfile
 # fastlane/Appfile
-apple_id "jai@optisolbusiness.com"
-app_identifier "com.usa.albert"
+apple_id "XXXXXX"
+app_identifier "XXXXXx"
 
